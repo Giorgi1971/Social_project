@@ -3,7 +3,7 @@ from django.db.models.deletion import CASCADE
 from django.utils.text import re_tag, slugify
 
 # Create your models here.
-import misaka
+# import misaka
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from django.urls import reverse
@@ -23,7 +23,8 @@ class Group(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        self.description_html = misaka.html(self.description)
+        self.description_html = "misaka_group"
+        # misaka.html(self.description)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

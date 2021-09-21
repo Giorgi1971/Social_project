@@ -9,13 +9,13 @@
 <div class="content">
 
     {% if user in group.members.all %}
-    <a href="{% url 'groups:leave' slug = group.slug %}" class="btn btn-lg btn-fill btn-info">
+    <a href="{% url 'groups:leave' slug=group.slug %}" class="btn btn-lg btn-fill btn-info">
         <span class="glyphicon glyphicon-remove-circle">
             Leave
         </span>
     </a>
     {% else %} 
-    <a href="{% url 'groups:join' slug = group.slug %}" class="btn btn-lg btn-fill btn-info">
+    <a href="{% url 'groups:join' slug=group.slug %}" class="btn btn-lg btn-fill btn-info">
         <span class="glyphicon glyphicon-ok-circle">
             Join
         </span>

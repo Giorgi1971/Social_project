@@ -1,5 +1,6 @@
 from django import template
 from django.core.checks import messages
+from django.contrib import messages
 from django.db.models.query_utils import select_related_descend
 from django.shortcuts import render
 
@@ -21,12 +22,12 @@ class PostList(SelectRelatedMixin, generic.ListView):
     select_related = ('user', 'group')
 
 class UserPosts(generic.ListView):
-    model = models.Posts
+    model = models.Post
     template_name = 'posts/user_post_list.html'
 
     def get_queryset(self):
         try:
-            self.post.user = User.objects.prefetch_related('posts').get(username_iexact=self.kwargs.get('username'))
+            self.post_user = User.objects.prefetch_related('posts').get(username_iexact=self.kwargs.get('username'))
         except User.DoesNotExist:
             return self.post_user.posts.all()
 
@@ -51,7 +52,9 @@ class CreatePost(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
 
     def form_valid(self,form):
         self.object = form.save(commit=False)
+        print(self.object)
         self.object.user = self.request.user
+        print(self.request.user)
         self.object.save()
         return super().form_valid(form)
 
